@@ -27,70 +27,91 @@ Projenin Özellikleri
     Dinamik Kontrol:
         Uygulama içerisindeki butonlar aracılığıyla kamera kontrolü ve köşe algılama özelliği kolayca yönetilebilir.
 
-Yüz Algılama Uygulaması
+# Yüz Algılama Uygulaması
 
-Bu proje, OpenCV kullanarak gerçek zamanlı yüz algılama yapan bir Python uygulamasıdır. Uygulama, web kamerasından alınan görüntüleri analiz eder ve tespit edilen yüzleri dikdörtgenle işaretler.
-Özellikler
+Bu proje, OpenCV kullanarak gerçek zamanlı yüz algılama yapan bir Python uygulamasıdır. Web kamerasından alınan görüntülerde yüz algılar ve bunları dikdörtgenlerle işaretler.
 
-    Gerçek Zamanlı Yüz Algılama: Uygulama, bağlı web kamerasından gelen görüntüleri işler.
-    OpenCV Haar Cascade Modeli: Yüz algılama için OpenCV'nin önceden eğitilmiş Haar Cascade sınıflandırıcısı kullanılır.
-    Basit ve Kullanıcı Dostu: Uygulama, sadece bir Python dosyası ile çalıştırılabilir.
+## Özellikler
 
-Gereksinimler
+- **Gerçek Zamanlı Yüz Algılama**: Web kamerası üzerinden çalışır.
+- **OpenCV Haar Cascade**: Önceden eğitilmiş modelle yüksek doğruluk.
+- **Kullanıcı Dostu**: Sadece birkaç adımda çalıştırabilirsiniz.
 
-    Python 3.x
-    OpenCV kütüphanesi
+## Gereksinimler
 
-Kurulum
+- **Python 3.x**  
+- **OpenCV** kütüphanesi (opencv-python)
 
-    Depoyu Klonlayın:
+## Kurulum
 
-git clone https://github.com/kullanici/yuz-algilama.git
-cd yuz-algilama
+1. **Depoyu Klonlayın**:
+    ```bash
+    git clone https://github.com/kullanici/yuz-algilama.git
+    cd yuz-algilama
+    ```
 
-Gerekli Kütüphaneyi Kurun:
+2. **Gerekli Paketleri Yükleyin**:
+    ```bash
+    pip install opencv-python
+    ```
 
-pip install opencv-python
-
-Programı Çalıştırın:
-
+3. **Uygulamayı Çalıştırın**:
+    ```bash
     python yuz_algilama.py
+    ```
 
-Kullanım
+## Kullanım
 
-    Program çalıştırıldığında web kamerası açılır.
-    Algılanan yüzler, mavi dikdörtgenlerle işaretlenir.
-    Programdan çıkmak için klavyenizde q tuşuna basabilirsiniz.
+- Program çalıştırıldığında web kamerası açılır.
+- Algılanan yüzler, mavi dikdörtgenlerle işaretlenir.
+- Programı kapatmak için **q** tuşuna basın.
 
-Kodun Temel Mantığı
+## Kod Mantığı
 
-    Haar Cascade sınıflandırıcısı yüklenir:
+1. **Haar Cascade Sınıflandırıcısı**:
+    ```python
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    ```
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+2. **Web Kamerasının Açılması**:
+    ```python
+    cap = cv2.VideoCapture(0)
+    ```
 
-Web kamerası başlatılır:
-
-cap = cv2.VideoCapture(0)
-
-Her karede yüz algılanır ve çizim yapılır:
-
+3. **Yüz Algılama ve İşaretleme**:
+    ```python
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    ```
 
-    q tuşuna basıldığında program sonlandırılır.
+4. **Programın Sonlandırılması**:
+    ```python
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+    ```
 
-Ekran Görüntüsü
+## Örnek Görüntü
 
-(Ekran görüntüsü eklemek için bir kare alabilirsiniz.)
-Katkıda Bulunma
+_(Ekran görüntüsü eklemek için bir kare alabilirsiniz.)_
 
-    Bu projeyi fork edin.
-    Yeni bir dal (branch) oluşturun: git checkout -b yeni-ozellik.
-    Değişikliklerinizi commit edin: git commit -m 'Yeni özellik ekle'.
-    Dalınızı push edin: git push origin yeni-ozellik.
-    Bir Pull Request açın.
+## Katkıda Bulunma
 
-Lisans
+1. Bu projeyi fork edin.
+2. Yeni bir dal (branch) oluşturun:
+    ```bash
+    git checkout -b yeni-ozellik
+    ```
+3. Değişikliklerinizi commit edin:
+    ```bash
+    git commit -m 'Yeni özellik eklendi'
+    ```
+4. Dalınızı push edin:
+    ```bash
+    git push origin yeni-ozellik
+    ```
+5. Bir **Pull Request** açın.
 
-Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasına bakın.
+## Lisans
+
+Bu proje **MIT Lisansı** ile lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakabilirsiniz.
